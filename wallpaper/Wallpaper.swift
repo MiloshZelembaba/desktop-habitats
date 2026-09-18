@@ -290,10 +290,11 @@ final class Controller: NSObject, NSApplicationDelegate, NSMenuDelegate {
   /// since decided otherwise.
   private var stopped =
     UserDefaults.standard.object(forKey: "paused") as? Bool ?? reduceMotion
-  /// The fastest clearly-visible drawing may go. Lower is cooler and quieter; 60 is
-  /// the old smoothness. Like the paused choice, it outlives a restart. Only values
-  /// the menu itself writes are ever stored, so no clamping is needed on the way in.
-  private var maxFps = UserDefaults.standard.object(forKey: "maxFps") as? Int ?? 30
+  /// The fastest clearly-visible drawing may go, chosen from the Frame Rate menu.
+  /// Lower is cooler and quieter. Like the paused choice, it outlives a restart.
+  /// Only values the menu itself writes are ever stored, so no clamping is needed
+  /// on the way in.
+  private var maxFps = UserDefaults.standard.object(forKey: "maxFps") as? Int ?? 60
   private let fpsMenu = NSMenu()
   private var lowPower: Bool { ProcessInfo.processInfo.isLowPowerModeEnabled }
   /// Reduce Motion is a durable choice about the whole machine, not a passing shortage
@@ -405,9 +406,8 @@ final class Controller: NSObject, NSApplicationDelegate, NSMenuDelegate {
   func applyRate() {
     let battery = onBattery
     // A sustained 60 fps never lets the GPU idle, which is what spins a laptop fan:
-    // every display renders the scene separately. The default 30 fps halves the work
-    // and leaves idle time between frames; ambient water reads the same at wallpaper
-    // distance. Battery never exceeds 30, as before.
+    // every display renders the scene separately. A lower menu setting halves the
+    // work and leaves idle time between frames. Battery never exceeds 30, as before.
     let full = battery ? min(maxFps, 30) : maxFps
     let still = stopped || lowPower || !awake
     // Read the window list once for all displays, and never while deliberately still.

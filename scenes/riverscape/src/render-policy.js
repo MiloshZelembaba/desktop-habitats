@@ -3,10 +3,8 @@
 export const PROFILES = Object.freeze({
   balanced: Object.freeze({
     name: 'balanced',
-    // Native display resolution: oversampling is the costliest fill-rate lever and
-    // 4x MSAA already keeps edges smooth. Battery matches AC.
-    resolution: 1,
-    batteryResolution: 1,
+    resolution: 1.25,
+    batteryResolution: 1.15,
     shadowSize: 2048,
     shadowHz: 30,
     batteryShadowHz: 15,
