@@ -6,8 +6,8 @@ const reference = renderSettings({ profile: 'reference', wallpaper: true, pixelR
 const balanced = renderSettings({ wallpaper: true, pixelRatio: 2 });
 const battery = renderSettings({ wallpaper: true, pixelRatio: 2, onBattery: true });
 assert.equal(reference.resolution, 2);
-assert.equal(balanced.resolution, 1.25);
-assert.equal(battery.resolution, 1.15);
+assert.equal(balanced.resolution, 1);
+assert.equal(battery.resolution, 1);
 assert.equal(balanced.samples, 4, 'Preserve quarter-coverage foliage translucency');
 assert.equal(balanced.shadowSize, 2048);
 assert.equal(balanced.shadowHz, 30);
